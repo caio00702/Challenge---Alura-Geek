@@ -5,49 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge AluraGeek</title>
+    <link rel="stylesheet" href="../css/normalize.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
-    <header>
+<body class="home">
+    <header class="header">
         <div class="logo">
             <img src="../img/logo.svg" alt="AluraGeek Logo">
         </div>
-        <nav>
-            <ul>
-                <li><a href="#">Início</a></li>
-                <li><a href="#">Produtos</a></li>
-                <li><a href="#">Contato</a></li>
-            </ul>
-        </nav>
     </header>
-    <main>
-        <div class="produtos-container">
-            <section class="produtos">
-                <h1>Meus Produtos</h1>
-                <div data-produtos-container class="product-grid"></div>
-                <div class="mensagem-vazia">
-                    <p>Nenhum produto foi adicionado.</p>
-                </div>
+    <main class="main">
+        <div class="conteudo">
+            <div class="produtos-container">
+                <section class="produtos">
+                    <h1 class="titulo-produtos">Meus Produtos</h1>
+                    <div data-produtos-container class="product-grid">
+                        <!-- Produtos serão inseridos aqui pelo JavaScript -->
+                    </div>
+                    <div class="mensagem-vazia">
+                        <p>Nenhum produto foi adicionado.</p>
+                    </div>
+                </section>
+            </div>
+            <section class="formulario">
+                <h1 class="titulo-formulario">Adicionar Produto</h1>
+                <form data-form-produto>
+                    <label for="nome-produto">Nome do Produto:</label>
+                    <input type="text" id="nome-produto" data-nome-produto class="input" required>
+                    <label for="preco-produto">Preço:</label>
+                    <input type="number" id="preco-produto" data-preco-produto class="input" required>
+                    <label for="imagem-produto">Imagem:</label>
+                    <input type="file" id="imagem-produto" data-imagem-produto class="input" accept="image/*" required>
+                    <div class="form-buttons">
+                        <button type="submit" class="save-btn">Adicionar</button>
+                        <button type="reset" class="clear-btn">Limpar</button>
+                    </div>
+                </form>
             </section>
         </div>
-        <section class="formulario">
-            <h1>Adicionar Produto</h1>
-            <form data-form-produto>
-                <label for="nome-produto">Nome do Produto:</label>
-                <input type="text" id="nome-produto" data-nome-produto required>
-                <label for="preco-produto">Preço:</label>
-                <input type="number" id="preco-produto" data-preco-produto required>
-                <label for="imagem-produto">Imagem:</label>
-                <input type="file" id="imagem-produto" data-imagem-produto accept="image/*" required>
-                <div class="form-buttons">
-                    <button type="submit" class="save-btn">Adicionar</button>
-                    <button type="reset" class="clear-btn">Limpar</button>
-                </div>
-            </form>
-        </section>
     </main>
-    <footer>
+    <footer class="footer">
         <div class="footer-logo">
             <img src="../img/logo.svg" alt="AluraGeek Logo">
         </div>

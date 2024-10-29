@@ -1,49 +1,58 @@
 // js/listarProdutos.js
 
-import {
-    getProdutos,
-    deletarProduto
-} from './api.js';
+export function listarProdutos() {
+    fetch('http://localhost:3000/produtos')
+        .then(response => response.json())
+        .then(data => {
+            const produtosContainer = document.querySelector('[data-produtos-container]');
+            produtosContainer.innerHTML = ''; // Limpa o container antes de adicionar os produtos
 
-export async function listarProdutos() {
-    const produtosContainer = document.querySelector('[data-produtos-container]');
-    const mensagemVazia = document.querySelector('.mensagem-vazia');
+            data.forEach(produto => {
+                const productCard = document.createElement('div');
+                productCard.classList.add('product-card');
 
-    if (!produtosContainer || !mensagemVazia) {
-        console.error('Elementos necessários não encontrados no DOM.');
-        return;
-    }
+                const productImage = document.createElement('img');
+                productImage.src = produto.imagem; // Supondo que a API retorna a URL da imagem no campo 'imagem'
+                productImage.alt = produto.nome;
+                productImage.classList.add('image-frame'); // Adiciona a classe 'image-frame' à imagem
 
-    const produtos = await getProdutos();
+                const productName = document.createElement('p');
+                productName.textContent = produto.nome;
 
-    if (produtos.length === 0) {
-        mensagemVazia.style.display = 'block';
-    } else {
-        mensagemVazia.style.display = 'none';
-        produtos.forEach(produto => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.dataset.id = produto.id;
-            card.innerHTML = `
-                <img src="${produto.imagem || '../img/image 1.svg'}" alt="Imagem do produto" />
-                <div class="card-container--info">
-                    <p>${produto.nome}</p>
-                    <div class="card-container--value">
-                        <p>Preço: $${produto.preco ? produto.preco.toFixed(2) : 'N/A'}</p>
-                        <img src="../img/Vector.svg" alt="Ícone de eliminação" class="delete-icon" />
-                    </div>
-                </div>
-            `;
-            produtosContainer.appendChild(card);
+                const productPrice = document.createElement('p');
+                productPrice.textContent = `$${produto.preco}`;
 
-            const deleteIcon = card.querySelector('.delete-icon');
-            deleteIcon.addEventListener('click', async function () {
-                await deletarProduto(produto.id);
-                card.remove();
-                if (produtosContainer.children.length === 0) {
-                    mensagemVazia.style.display = 'block';
-                }
+                productCard.appendChild(productImage);
+                productCard.appendChild(productName);
+                productCard.appendChild(productPrice);
+
+                produtosContainer.appendChild(productCard);
             });
+        })
+        .catch(error => console.error('Erro ao carregar produtos:', error));
+}            });
+
+            productCard.appendChild(productImage);
+            productCard.appendChild(productName);
+            productCard.appendChild(productPrice);
+            productCard.appendChild(deleteButton);
+
+            produtosContainer.appendChild(productCard);
         });
+    } catch (error) {
+        console.error('Erro ao carregar produtos:', error);
+    }
+}
+
+async function deletarProduto(id) {
+    try {
+        const response = await fetch(`http://localhost:3000/produtos/${id}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) {
+            throw new Error('Erro ao deletar produto');
+        }
+    } catch (error) {
+        console.error('Erro:', error);
     }
 }

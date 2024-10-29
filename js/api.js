@@ -26,8 +26,7 @@ export async function criarProduto(produto) {
         if (!response.ok) {
             throw new Error('Erro ao criar produto');
         }
-        const novoProduto = await response.json();
-        return novoProduto;
+        return await response.json();
     } catch (error) {
         console.error('Erro:', error);
         return null;
